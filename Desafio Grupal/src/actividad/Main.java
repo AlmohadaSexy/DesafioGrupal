@@ -5,14 +5,17 @@ public class Main {
 	public static void main(String[] args) {
 		Mapa mapa = new Mapa();
 		
-		mapa.addNodo("A", 3, 25);
-		mapa.addNodo("B", 23, 5);
-		mapa.addNodo("C", 14, 20);
-		mapa.addNodo("D", -23, 0);
-		mapa.addNodo("E", 44, -31);
+		mapa.addNodo("A", 0, 0);
+		mapa.addNodo("B", 0, 1);
+		mapa.addNodo("C", 0, 7);
+		mapa.addNodo("D", 10, 10);
+		mapa.addNodo("E", 20, 20);
+		mapa.addNodo("F", 40, 20);
 		
-		mapa.addConexion("B", "D");
-		mapa.addConexion("C", "E");
+		mapa.addConexion("B", "C");
+		mapa.addConexion("F", "D");
+		mapa.addConexion("F", "D");
+		
 		mapa.encontrarPutoCamino("A");
 	}
 }

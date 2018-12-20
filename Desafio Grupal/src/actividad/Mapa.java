@@ -78,10 +78,21 @@ public class Mapa {
 		return false;
 	}
 	
+	private boolean existsConex(String name) {
+		for(Conexion conexion : conexiones) {
+			if(conexion.getName1().equals(name)) {
+				return true;
+			} else if(conexion.getName2().equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void encontrarPutoCamino(String inicio) {
 		if(existsNode(inicio)) {
 			for(Nodo nodo : nodos) {
-            	if(!nodo.getName().equals(inicio)) {
+            	if(!nodo.getName().equals(inicio) && existsConex(nodo.getName())) {
                 	permutate += nodo.getName();
                 }
             }
