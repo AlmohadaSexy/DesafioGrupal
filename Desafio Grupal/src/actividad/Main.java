@@ -1,8 +1,23 @@
 package actividad;
 
-public class Main {
+import fxml.ScreensController;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
-	public static void main(String[] args) {
+public class Main extends Application {
+	
+	public static String datosID= "Datos";
+	public static String datosFile= "Datos.fxml";
+	public static String graphID= "Grafico";
+	public static String graphFile= "Graph.fxml";
+	
+	private static Stage stage;
+    private static ScreensController mainContainer;
+    
+	public static void main1(String[] args) {
 		Mapa mapa = new Mapa();
 		
 		mapa.addNodo("A", 0, 0);
@@ -17,5 +32,39 @@ public class Main {
 		mapa.addConexion("F", "D");
 		
 		mapa.encontrarPutoCamino("A");
+	}
+	
+	@Override
+    public void start(Stage primaryStage) {
+		Mapa mapa = new Mapa();
+       	mainContainer = new ScreensController();
+        
+        mainContainer.loadScreen(datosID, datosFile, mapa);
+        
+        
+        mainContainer.setScreen(datosID);
+        
+        Group root = new Group();
+        root.getChildren().addAll(mainContainer);
+        Scene scene = new Scene(root);
+//        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        stage = primaryStage;
+        stage.setScene(scene);
+//        stage.getIcons().add(new Image("/Logo.jpg")); 
+        setTitle(datosID);
+        stage.setResizable(false);
+        stage.show();
+    }
+	
+    public static void setTitle(String name) {
+    	stage.setTitle(name);
+    }
+    
+	public static void cargarNuevas(Mapa mapa) {
+		mainContainer.loadScreen(graphID, graphFile, mapa);
+    }
+	
+	public static void main(String[] args) {
+		launch(args);
 	}
 }
