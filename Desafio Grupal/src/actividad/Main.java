@@ -36,10 +36,10 @@ public class Main extends Application {
 	
 	@Override
     public void start(Stage primaryStage) {
-		Mapa mapa = new Mapa();
+		
        	mainContainer = new ScreensController();
         
-        mainContainer.loadScreen(datosID, datosFile, mapa);
+        mainContainer.loadScreen(datosID, datosFile);
         
         
         mainContainer.setScreen(datosID);

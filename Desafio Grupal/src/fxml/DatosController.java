@@ -2,18 +2,27 @@ package fxml;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
 import actividad.Mapa;
+import javafx.beans.value.ChangeListener;
+
+import javafx.scene.control.TextFormatter.Change;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 public class DatosController implements Initializable, ControlledScreen{
-
 	private Mapa mapa;
 	
 	@FXML
@@ -35,28 +44,53 @@ public class DatosController implements Initializable, ControlledScreen{
 	private TextField tf_nodo;
 	
 	@FXML
-	private TextField tf_x;
-	
-	@FXML
 	private TextField tf_y;
 	
 	@FXML
+	private TextField tf_x;
+	
+	@FXML
+	private Label lbl_incorrect;
+	
+	@FXML
+	private Button btn_new;
+	@FXML
 	private ChoiceBox<String> cbx_inicio;
+	
+	@FXML
+	private CheckBox check_x;
+	
+	@FXML
+	private CheckBox check_y;
 	
 	private ObservableList<String> nodos = FXCollections.observableArrayList();
 	
 	@FXML
 	public void addNodo() {
-		int x = Integer.parseInt(tf_x.getText());
-		int y = Integer.parseInt(tf_y.getText());
-		this.mapa.addNodo(tf_nodo.getText(), x, y);
-		nodos.add(tf_nodo.getText());
-		cbx_1.setItems(nodos);
-		cbx_2.setItems(nodos);
-		cbx_inicio.setItems(nodos);
-		tf_nodo.clear();
-		tf_x.clear();
-		tf_y.clear();
+		if(!nodos.contains(tf_nodo.getText())) {
+			int x = 0;
+			int y = 0;
+			if(check_x.isSelected()) {
+				x = 0 - Integer.parseInt(tf_x.getText());
+			} else {
+				x = Integer.parseInt(tf_x.getText());
+			}
+			if(check_y.isSelected()) {
+				y = 0 - Integer.parseInt(tf_y.getText());
+			} else {
+				y = Integer.parseInt(tf_y.getText());
+			}
+			this.mapa.addNodo(tf_nodo.getText(), x, y);
+			nodos.add(tf_nodo.getText());
+			cbx_1.setItems(nodos);
+			cbx_2.setItems(nodos);
+			cbx_inicio.setItems(nodos);
+			tf_nodo.clear();
+			tf_y.clear();
+			tf_x.clear();
+		} else {
+			lbl_incorrect.setVisible(true);
+		}
 	}
 	
 	@FXML
@@ -71,6 +105,18 @@ public class DatosController implements Initializable, ControlledScreen{
 		this.mapa.encontrarPutoCamino(cbx_inicio.getValue());
 	}
 	
+	@FXML
+	public void borrarTodo() {
+		this.mapa = new Mapa();
+		this.nodos.clear();
+		tf_nodo.clear();
+		tf_y.clear();
+		tf_x.clear();
+		cbx_1.setItems(nodos);
+		cbx_2.setItems(nodos);
+		cbx_inicio.setItems(nodos);
+	}
+	
 	@Override
 	public void setScreenParent(ScreensController screenParent) {
 		// TODO Auto-generated method stub
@@ -79,10 +125,40 @@ public class DatosController implements Initializable, ControlledScreen{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		this.mapa = new Mapa();
 		
+		lbl_incorrect.setVisible(false);
+		
+        /**
+         * 
+         * 
+         * 
+         * 
+         */
+		tf_y.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		            tf_y.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
+		
+		tf_x.textProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
+		        String newValue) {
+		        if (!newValue.matches("\\d*")) {
+		            tf_x.setText(newValue.replaceAll("[^\\d]", ""));
+		        }
+		    }
+		});
 	}
 
+	public DatosController() {
+		
+	}
 	@Override
 	public void addMapa(Mapa mapa) {
 		this.mapa = mapa;
