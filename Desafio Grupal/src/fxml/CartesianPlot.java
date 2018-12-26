@@ -1,4 +1,4 @@
-package actividad;
+package fxml;
 
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;

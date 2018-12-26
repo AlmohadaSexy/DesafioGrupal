@@ -12,7 +12,7 @@ public class Main extends Application {
 	public static String datosID= "Datos";
 	public static String datosFile= "Datos.fxml";
 	public static String graphID= "Grafico";
-	public static String graphFile= "Graph.fxml";
+	public static String graphFile= "Mapa.fxml";
 	
 	private static Stage stage;
     private static ScreensController mainContainer;
@@ -30,7 +30,7 @@ public class Main extends Application {
 		mapa.addConexion("B", "C");
 		mapa.addConexion("F", "D");
 		mapa.addConexion("F", "D");
-		
+		//94
 		mapa.encontrarPutoCamino("A");
 	}
 	

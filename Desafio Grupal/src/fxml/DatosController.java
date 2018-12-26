@@ -2,12 +2,12 @@ package fxml;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
+
+import javax.swing.JOptionPane;
 
 import actividad.Mapa;
 import javafx.beans.value.ChangeListener;
 
-import javafx.scene.control.TextFormatter.Change;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,11 +18,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.util.StringConverter;
-import javafx.util.converter.IntegerStringConverter;
 
-public class DatosController implements Initializable, ControlledScreen{
+public class DatosController implements Initializable, ControlledScreen {
+	ScreensController myController;
 	private Mapa mapa;
 	
 	@FXML
@@ -103,6 +101,12 @@ public class DatosController implements Initializable, ControlledScreen{
 	@FXML
 	public void aceptar() {
 		this.mapa.encontrarPutoCamino(cbx_inicio.getValue());
+		JOptionPane.showMessageDialog(null,
+			    "El recorrido más eficaz es '" + this.mapa.getFinalRecorrido() + "' con una distancia de " + mapa.getFinalDistancia() + " km.",
+			    "Solucion",
+			    JOptionPane.PLAIN_MESSAGE);
+//		Main.cargarNuevas(this.mapa);
+//		myController.setScreen(Main.graphID);
 	}
 	
 	@FXML
@@ -119,7 +123,7 @@ public class DatosController implements Initializable, ControlledScreen{
 	
 	@Override
 	public void setScreenParent(ScreensController screenParent) {
-		// TODO Auto-generated method stub
+		myController = screenParent;
 		
 	}
 

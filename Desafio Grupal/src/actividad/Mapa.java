@@ -10,6 +10,9 @@ public class Mapa {
 	private ArrayList<String> recorridos = new ArrayList<String>();
 	private ArrayList<Double> distanciaRecorridos = new ArrayList<Double>();
 	
+	private String finalRecorrido;
+	private double finalDistancia;
+	
 	private String permutate = "";
 	
 	public Mapa() {
@@ -161,10 +164,12 @@ public class Mapa {
 				aux = ii;
 			}
 		}
+		setFinalRecorrido(recorridos.get(aux));
+		setFinalDistancia(distanciaRecorridos.get(aux));
 		return aux;
 	}
 	
-	private Nodo getNode(String name) {
+	public Nodo getNode(String name) {
 		for(Nodo nodo : nodos) {
 			if(nodo.getName().equals(name)) {
 				return nodo;
@@ -189,5 +194,21 @@ public class Mapa {
 			}
 		}
 		return false;
+	}
+
+	public String getFinalRecorrido() {
+		return finalRecorrido;
+	}
+
+	private void setFinalRecorrido(String finalRecorrido) {
+		this.finalRecorrido = finalRecorrido;
+	}
+
+	public double getFinalDistancia() {
+		return finalDistancia;
+	}
+
+	private void setFinalDistancia(double finalDistancia) {
+		this.finalDistancia = finalDistancia;
 	}
 }

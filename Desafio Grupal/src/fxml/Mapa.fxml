@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.MapaController">
+   <center>
+      <Pane fx:id="canvas" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lbl_solucion" contentDisplay="CENTER" focusTraversable="false" layoutX="222.0" layoutY="71.0" text="Solucion" textAlignment="CENTER" />
+         </children></Pane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="16.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btn_pintar" mnemonicParsing="false" text="Pintar" />
+            <Button fx:id="btn_sol" mnemonicParsing="false" text="Solucion" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
