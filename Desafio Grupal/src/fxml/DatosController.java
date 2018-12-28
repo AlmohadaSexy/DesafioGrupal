@@ -64,7 +64,7 @@ public class DatosController implements Initializable, ControlledScreen {
 	private ObservableList<String> nodos = FXCollections.observableArrayList();
 	
 	@FXML
-	public void addNodo() {
+	public void addNodo1() {
 		if(!nodos.contains(tf_nodo.getText())) {
 			int x = 0;
 			int y = 0;
@@ -78,6 +78,37 @@ public class DatosController implements Initializable, ControlledScreen {
 			} else {
 				y = Integer.parseInt(tf_y.getText());
 			}
+			this.mapa.addNodo(tf_nodo.getText(), x, y);
+			nodos.add(tf_nodo.getText());
+			cbx_1.setItems(nodos);
+			cbx_2.setItems(nodos);
+			cbx_inicio.setItems(nodos);
+			tf_nodo.clear();
+			tf_y.clear();
+			tf_x.clear();
+		} else {
+			lbl_incorrect.setVisible(true);
+		}
+	}
+	
+	@FXML
+	public void addNodo() {
+		if(!nodos.contains(tf_nodo.getText())) {
+			int x = 0;
+			int y = 0;
+			if(check_x.isSelected()) {
+				x = 0 - (int) (Math.random() * 100);
+			} else {
+				x = (int) (Math.random() * 100);
+			}
+			if(check_y.isSelected()) {
+				y = 0 - (int) (Math.random() * 100);
+			} else {
+				y = (int) (Math.random() * 100);
+			}
+			System.out.println("Nodo = " + tf_nodo.getText());
+			System.out.println("X = " + x);
+			System.out.println("Y = " + y);
 			this.mapa.addNodo(tf_nodo.getText(), x, y);
 			nodos.add(tf_nodo.getText());
 			cbx_1.setItems(nodos);

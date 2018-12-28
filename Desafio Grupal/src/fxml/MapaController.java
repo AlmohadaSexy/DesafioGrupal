@@ -14,8 +14,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 public class MapaController implements Initializable, ControlledScreen{
+	
+	ScreensController myController;
+	
 	private Mapa mapa;
-	private static Mapa mapa1;
+	
 	@FXML
 	private Pane canvas;
 	
@@ -63,7 +66,7 @@ public class MapaController implements Initializable, ControlledScreen{
 	
 	@FXML
 	public void pintar() {
-		canvas.getChildren().clear();
+		panel.removeAll();
 		crearLineas();
 	}
 	
@@ -76,14 +79,10 @@ public class MapaController implements Initializable, ControlledScreen{
 				+ "El recorrido final es " + finRec + ", con una distancia de " + finDis + " km";
 		lbl_solucion.setText(str);
 	}
-	public static void setMapa(Mapa map) {
-		mapa1 = map;
-	}
 	
 	@Override
 	public void setScreenParent(ScreensController screenParent) {
-		// TODO Auto-generated method stub
-		
+		myController = screenParent;
 	}
 
 	@Override
