@@ -30,7 +30,7 @@ public class Main extends Application {
 		mapa.addConexion("F", "D");
 		mapa.addConexion("F", "D");
 		//94
-		mapa.encontrarPutoCamino("A");
+		mapa.encontrarCamino("A");
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class Main extends Application {
         stage.setScene(scene);
 //        stage.getIcons().add(new Image("/Logo.jpg")); 
         setTitle(datosID);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 	

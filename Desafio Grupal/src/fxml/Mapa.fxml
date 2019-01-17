@@ -8,19 +8,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.MapaController">
-   <center>
-      <Pane fx:id="canvas" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.MapaController">
+   <children>
+      <Pane fx:id="canvas" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label fx:id="lbl_solucion" contentDisplay="CENTER" focusTraversable="false" layoutX="222.0" layoutY="71.0" text="Solucion" textAlignment="CENTER" />
-         </children></Pane>
-   </center>
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="16.0" prefWidth="500.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btn_pintar" mnemonicParsing="false" text="Pintar" />
-            <Button fx:id="btn_sol" mnemonicParsing="false" text="Solucion" />
+            <Button mnemonicParsing="false" onAction="#volver" text="Volver" />
+            <Button fx:id="btn_pintar" mnemonicParsing="false" onAction="#pintar" text="Pintar" />
+            <Label fx:id="lbl_solucion" text="Label" />
          </children>
       </HBox>
-   </bottom>
-</BorderPane>
+   </children>
+</AnchorPane>

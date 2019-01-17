@@ -20,7 +20,8 @@ public class Mapa {
 	}
 	
 	/**
-	 * Añade un nodo <code>(String, int, int)</code> al ArrayList <code>nodos</code>, de donde sacaremos los puntos para realizar nuestro camino
+	 * Añade un nodo <code>(String, int, int)</code> al ArrayList <code>nodos</code>, de donde sacaremos los puntos para realizar nuestro camino.
+	 * el nombre es aconsejable que solo tenga un caracter.
 	 * @param name nombre con el cual nos referiremos al nodo
 	 * @param x coordenada x
 	 * @param y coordenada y
@@ -43,7 +44,7 @@ public class Mapa {
 	 * A este metodo se le llama desde el main, encuentra el camino mas eficaz para repartir todos los pedidos
 	 * @param inicio nombre del nodo desde donde empiezas y terminas el reparto
 	 */
-	public void encontrarPutoCamino(String inicio) {
+	public void encontrarCamino(String inicio) {
 		if(existsNode(inicio)) {
 			for(Nodo nodo : nodos) {
             	if(!nodo.getName().equals(inicio) && existsConex(nodo.getName())) {
@@ -70,6 +71,7 @@ public class Mapa {
 	/**
 	 * Este metodo recursivo se llama una y otra vez a si mismo con diferentes strings. 
 	 * Cuando los dos contadores son iguales, dicha string se añade al ArrayList <code>todosRecorridos</code>
+	 * Esto consigue eficientemente todas las iteraciones nuestra String para conseguir todos los caminos posibles
 	 * @param permutate String de la permutacion
 	 * @param iniInd indice inicial
 	 * @param finInd indice final
@@ -85,7 +87,13 @@ public class Mapa {
             } 
 		}
 	}
-	
+	/**
+	 * este metodo es auxiliar para el metodo <code>permutaciones</code> que cambia de orden los caracteres del String
+	 * @param permutate
+	 * @param ii
+	 * @param jj
+	 * @return
+	 */
 	private String swap(String permutate, int ii, int jj) {
 		char temp; 
         char[] charArray = permutate.toCharArray(); 
@@ -94,7 +102,10 @@ public class Mapa {
         charArray[jj] = temp; 
         return String.valueOf(charArray); 
 	}
-
+	/**
+	 * Este metodo selecciona el nodo donde empieza el recorrido
+	 * @param start
+	 */
 	private void addStart(String start) {
 		for(int ii = 0; ii < todosRecorridos.size(); ii++) {
 			String caminoFin = start + todosRecorridos.get(ii) + start;

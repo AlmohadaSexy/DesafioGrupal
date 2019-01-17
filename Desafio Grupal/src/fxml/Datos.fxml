@@ -13,12 +13,6 @@
                <children>
                   <Label text="Nodo" />
                   <TextField fx:id="tf_nodo" prefHeight="31.0" prefWidth="161.0" promptText="Nodo" />
-                  <VBox alignment="CENTER" prefHeight="100.0" prefWidth="36.0">
-                     <children>
-                        <CheckBox fx:id="check_x" focusTraversable="false" mnemonicParsing="false" />
-                        <CheckBox fx:id="check_y" focusTraversable="false" mnemonicParsing="false" prefHeight="21.0" prefWidth="2.0" />
-                     </children>
-                  </VBox>
                   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="120.0">
                      <children>
                         <TextField fx:id="tf_x" alignment="TOP_CENTER" prefHeight="0.0" prefWidth="132.0" promptText="Coordenada x" />

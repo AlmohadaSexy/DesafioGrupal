@@ -5,9 +5,9 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import actividad.Main;
 import actividad.Mapa;
 import javafx.beans.value.ChangeListener;
-
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +18,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 
 public class DatosController implements Initializable, ControlledScreen {
 	ScreensController myController;
@@ -62,22 +64,14 @@ public class DatosController implements Initializable, ControlledScreen {
 	private CheckBox check_y;
 	
 	private ObservableList<String> nodos = FXCollections.observableArrayList();
-	
+	private int conexiones = 0;
 	@FXML
-	public void addNodo1() {
+	public void addNodo() {
 		if(!nodos.contains(tf_nodo.getText())) {
 			int x = 0;
 			int y = 0;
-			if(check_x.isSelected()) {
-				x = 0 - Integer.parseInt(tf_x.getText());
-			} else {
-				x = Integer.parseInt(tf_x.getText());
-			}
-			if(check_y.isSelected()) {
-				y = 0 - Integer.parseInt(tf_y.getText());
-			} else {
-				y = Integer.parseInt(tf_y.getText());
-			}
+			x = Integer.parseInt(tf_x.getText());
+			y = Integer.parseInt(tf_y.getText());
 			this.mapa.addNodo(tf_nodo.getText(), x, y);
 			nodos.add(tf_nodo.getText());
 			cbx_1.setItems(nodos);
@@ -86,26 +80,20 @@ public class DatosController implements Initializable, ControlledScreen {
 			tf_nodo.clear();
 			tf_y.clear();
 			tf_x.clear();
+			lbl_incorrect.setVisible(false);
 		} else {
+			lbl_incorrect.setText("Nombre del nodo ya en uso");
 			lbl_incorrect.setVisible(true);
 		}
 	}
 	
 	@FXML
-	public void addNodo() {
+	public void addNodo1() {
 		if(!nodos.contains(tf_nodo.getText())) {
 			int x = 0;
 			int y = 0;
-			if(check_x.isSelected()) {
-				x = 0 - (int) (Math.random() * 100);
-			} else {
-				x = (int) (Math.random() * 100);
-			}
-			if(check_y.isSelected()) {
-				y = 0 - (int) (Math.random() * 100);
-			} else {
-				y = (int) (Math.random() * 100);
-			}
+			x = (int) (Math.random() * 100);
+			y = (int) (Math.random() * 100);
 			System.out.println("Nodo = " + tf_nodo.getText());
 			System.out.println("X = " + x);
 			System.out.println("Y = " + y);
@@ -124,20 +112,40 @@ public class DatosController implements Initializable, ControlledScreen {
 	
 	@FXML
 	public void addConexion() {
-		String nodo1 = cbx_1.getValue();
-		String nodo2 = cbx_2.getValue();
-		this.mapa.addConexion(nodo1, nodo2);
+		if(conexiones <= 7) {
+			String nodo1 = cbx_1.getValue();
+			String nodo2 = cbx_2.getValue();
+			this.mapa.addConexion(nodo1, nodo2);
+			conexiones++;
+		} else {
+			lbl_incorrect.setText("El máximo de conexiones (7) ha sido alcanzado"); 
+			lbl_incorrect.setVisible(true);
+		}
 	}
 	
 	@FXML
 	public void aceptar() {
-		this.mapa.encontrarPutoCamino(cbx_inicio.getValue());
+		boolean canI = false;
+		while(!canI){
+			try {
+				cbx_inicio.getValue().equals(null);
+			} catch(Exception e) {
+				
+			}finally{
+				lbl_incorrect.setText("Selecciona un nodo de inicio");
+				lbl_incorrect.setVisible(true);
+				canI = true;
+			}
+		}
+		lbl_incorrect.setVisible(false);
+		this.mapa.encontrarCamino(cbx_inicio.getValue());
 		JOptionPane.showMessageDialog(null,
 			    "El recorrido más eficaz es '" + this.mapa.getFinalRecorrido() + "' con una distancia de " + mapa.getFinalDistancia() + " km.",
 			    "Solucion",
 			    JOptionPane.PLAIN_MESSAGE);
-//		Main.cargarNuevas(this.mapa);
-//		myController.setScreen(Main.graphID);
+		Main.cargarNuevas(this.mapa);
+		myController.setScreen(Main.graphID);
+		
 	}
 	
 	@FXML
@@ -164,12 +172,15 @@ public class DatosController implements Initializable, ControlledScreen {
 		
 		lbl_incorrect.setVisible(false);
 		
-        /**
-         * 
-         * 
-         * 
-         * 
-         */
+		tf_nodo.setTextFormatter(new TextFormatter<String>((Change change) -> {
+		    String newText = change.getControlNewText();
+		    if (newText.length() > 1) {
+		        return null ;
+		    } else {
+		        return change ;
+		    }
+		}));
+
 		tf_y.textProperty().addListener(new ChangeListener<String>() {
 		    @Override
 		    public void changed(ObservableValue<? extends String> observable, String oldValue, 
@@ -194,6 +205,7 @@ public class DatosController implements Initializable, ControlledScreen {
 	public DatosController() {
 		
 	}
+	
 	@Override
 	public void addMapa(Mapa mapa) {
 		this.mapa = mapa;
