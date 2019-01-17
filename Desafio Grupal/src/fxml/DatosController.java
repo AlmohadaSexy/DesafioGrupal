@@ -68,44 +68,26 @@ public class DatosController implements Initializable, ControlledScreen {
 	@FXML
 	public void addNodo() {
 		if(!nodos.contains(tf_nodo.getText())) {
-			int x = 0;
-			int y = 0;
-			x = Integer.parseInt(tf_x.getText());
-			y = Integer.parseInt(tf_y.getText());
-			this.mapa.addNodo(tf_nodo.getText(), x, y);
-			nodos.add(tf_nodo.getText());
-			cbx_1.setItems(nodos);
-			cbx_2.setItems(nodos);
-			cbx_inicio.setItems(nodos);
-			tf_nodo.clear();
-			tf_y.clear();
-			tf_x.clear();
-			lbl_incorrect.setVisible(false);
+			if(!tf_x.getText().equals(null) || !tf_y.getText().equals(null)) {
+				lbl_incorrect.setText("Introduzca las coordenadas correctamente");
+				lbl_incorrect.setVisible(true);
+			} else {
+				int x = 0;
+				int y = 0;
+				x = Integer.parseInt(tf_x.getText());
+				y = Integer.parseInt(tf_y.getText());
+				this.mapa.addNodo(tf_nodo.getText(), x, y);
+				nodos.add(tf_nodo.getText());
+				cbx_1.setItems(nodos);
+				cbx_2.setItems(nodos);
+				cbx_inicio.setItems(nodos);
+				tf_nodo.clear();
+				tf_y.clear();
+				tf_x.clear();
+				lbl_incorrect.setVisible(false);
+			}
 		} else {
 			lbl_incorrect.setText("Nombre del nodo ya en uso");
-			lbl_incorrect.setVisible(true);
-		}
-	}
-	
-	@FXML
-	public void addNodo1() {
-		if(!nodos.contains(tf_nodo.getText())) {
-			int x = 0;
-			int y = 0;
-			x = (int) (Math.random() * 100);
-			y = (int) (Math.random() * 100);
-			System.out.println("Nodo = " + tf_nodo.getText());
-			System.out.println("X = " + x);
-			System.out.println("Y = " + y);
-			this.mapa.addNodo(tf_nodo.getText(), x, y);
-			nodos.add(tf_nodo.getText());
-			cbx_1.setItems(nodos);
-			cbx_2.setItems(nodos);
-			cbx_inicio.setItems(nodos);
-			tf_nodo.clear();
-			tf_y.clear();
-			tf_x.clear();
-		} else {
 			lbl_incorrect.setVisible(true);
 		}
 	}
@@ -139,10 +121,6 @@ public class DatosController implements Initializable, ControlledScreen {
 		}
 		lbl_incorrect.setVisible(false);
 		this.mapa.encontrarCamino(cbx_inicio.getValue());
-		JOptionPane.showMessageDialog(null,
-			    "El recorrido más eficaz es '" + this.mapa.getFinalRecorrido() + "' con una distancia de " + mapa.getFinalDistancia() + " km.",
-			    "Solucion",
-			    JOptionPane.PLAIN_MESSAGE);
 		Main.cargarNuevas(this.mapa);
 		myController.setScreen(Main.graphID);
 		

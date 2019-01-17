@@ -36,26 +36,6 @@ public class MapaController implements Initializable, ControlledScreen{
 		String recorrido = mapa.getFinalRecorrido();
 		if(recorrido != null) {
 			char[] recorridoChar = recorrido.toCharArray();
-			//TODO regla de tres para aumentar esto
-			int xMin = 1000000000;
-			int xMax = 0;
-			int yMin = 1000000000;
-			int yMax = 0;
-			
-			for(int ii = 0; ii < recorridoChar.length; ii++) {
-				if(mapa.getNode(String.valueOf(recorridoChar[ii])).getX() < xMin) {
-					xMin = mapa.getNode(String.valueOf(recorridoChar[ii])).getX();
-				}
-				if(mapa.getNode(String.valueOf(recorridoChar[ii])).getX() > xMax) {
-					xMax = mapa.getNode(String.valueOf(recorridoChar[ii])).getX();
-				}
-				if(mapa.getNode(String.valueOf(recorridoChar[ii])).getY() < yMin) {
-					yMin = mapa.getNode(String.valueOf(recorridoChar[ii])).getY();
-				}
-				if(mapa.getNode(String.valueOf(recorridoChar[ii])).getY() > yMax) {
-					yMax = mapa.getNode(String.valueOf(recorridoChar[ii])).getY();
-				}
-			}
 			for(int ii = 0; ii < recorridoChar.length - 1; ii++) {
 				int xIni = mapa.getNode(String.valueOf(recorridoChar[ii])).getX();
 				int yIni = mapa.getNode(String.valueOf(recorridoChar[ii])).getY();
@@ -84,7 +64,6 @@ public class MapaController implements Initializable, ControlledScreen{
 	@FXML
 	public void pintar() {
 		canvas.getChildren().removeAll();
-		System.out.println("hola");
 		crearLineas();
 	}
 	
